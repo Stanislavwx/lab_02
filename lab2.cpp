@@ -1,4 +1,6 @@
-﻿#include "point.h"
+#include "point.h"
+
+#include "point.h"
 
 int main() {
     Triangle triangle;
@@ -15,6 +17,13 @@ int main() {
         std::cout << "Трикутник вироджений!\n";
     }
 
+    int methodChoice;
+    std::cout << "\nОберіть метод перевірки приналежності точки:\n";
+    std::cout << "1 - Векторний добуток\n";
+    std::cout << "2 - Формула Герона\n";
+    std::cout << "Ваш вибір: ";
+    std::cin >> methodChoice;
+
     int n;
     std::cout << "Введіть к-сть точок для перевірки: ";
     std::cin >> n;
@@ -24,13 +33,26 @@ int main() {
         std::cout << "Введіть координати точки " << i + 1 << ": ";
         std::cin >> P.x >> P.y;
 
-        if (isPointOnTriangleEdge(triangle, P))
+        if (isPointOnTriangleEdge(triangle, P)) {
             std::cout << "Точка лежить на межі\n";
-        else if (isPointInTriangle(triangle, P))
-            std::cout << "Точка лежить всередині трикутника\n";
-        else
-            std::cout << "Точка не належить трикутнику\n";
+        } else {
+            bool inside = false;
+            if (methodChoice == 1)
+                inside = isPointInTriangle(triangle, P);
+            else if (methodChoice == 2)
+                inside = isPointInTriangleHeron(triangle, P);
+            else {
+                std::cout << "Невірний вибір методу.\n";
+                return 1;
+            }
+
+            if (inside)
+                std::cout << "Точка лежить всередині трикутника\n";
+            else
+                std::cout << "Точка не належить трикутнику\n";
+        }
     }
 
     return 0;
 }
+
