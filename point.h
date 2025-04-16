@@ -29,4 +29,7 @@ bool isPointOnTriangleEdge(Triangle& tri,Point& P);
 
 bool isPointInTriangle(Triangle& tri, Point& P);
 
+bool isPointInTriangleHeron(Triangle& tri, Point& P);
+
+
 #endif
